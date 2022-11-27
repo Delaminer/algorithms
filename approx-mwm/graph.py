@@ -2,13 +2,14 @@ from matching import matching
 from display import display
 
 line = input()
-num_edges, max_letter = line.split()
-num_edges = int(num_edges)
-num_vertices = 1 + ord(max_letter) - ord('A')
+n, m = line.split()
+n = int(n)
+m = int(m)
 
 vertices = {}
+edges = []
 
-for i in range(num_edges):
+for i in range(m):
     edge = input()
     a, b = edge.split()
     
@@ -17,13 +18,15 @@ for i in range(num_edges):
     if b not in vertices:
         vertices[b] = []
     
+    edges.append([a, b])
     vertices[a].append(b)
     vertices[b].append(a)
 
-print(vertices)
+# print(vertices)
 
 matching = matching(vertices=vertices)
 
-print(f"largest matching was size {len(matching)}: {matching}")
+print(f"largest matching was size {len(matching)}")
+print(matching)
 
-display(vertices, matching)
+display(vertices, edges)

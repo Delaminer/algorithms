@@ -1,0 +1,49 @@
+def fast_matching(vertices):
+    # epsilon = 1/4
+    # epsilon_prime = Theta(epsilon)
+
+    # Matching = null
+    # Omega = null
+    # delta_0 = epsilon_prime * N
+    # y(u) = N / 2 - delta_0 / 2, for all u in V(G)
+
+    # Execute scales i = 0, ..., L = log N and return the matching M
+
+    # Scale i:
+
+    # Repeat the four steps until:
+    # * y-values of free vertices reach N / (2^(i+2)) - delta_i / 2
+    # * i in [0, L)
+    # * i = L
+
+    # (1) Augmentation:
+    # Find a maximal set Psi of vertex-disjoint augmenting paths in G_elig
+    # Set M = M (+) (Union P, for all P in Psi)
+    # Update G_elig
+
+    # (2) Blossom Shrinking:
+    # Let V_out be a subset of V(G_elig) be the vertices (that is, root blossoms) reachable from free vertices by even-length alternating paths;
+    # Let Omega_prime be a maximal set of (nested) blossoms on V_out.
+    # (That is, if (u, v) is in E(G_elig) \ M and u, v is in V_out, then u and v must be in a common blossom.)
+    # Let V_in be a subset of V(G_elig) \ V_out, those non-V_out-vertices reachable from free vertices by odd-length alternating paths.
+    # Set z(B) = 0 for B in Omega_prime and set Omega = Omega union Omega_prime.
+    # Update G_elig
+
+
+    # (3) Dual Adustment:
+    # Let V-hat_in, V-hat_out be subsets of V, the original vertices represented by vertices in V_in and V_out.
+    # The y- and z-values for some vertices and root blossoms are adjusted:
+    # y(u) = y(u) - delta_i / 2 if u in V-hat_out
+    # y(u) = y(u) + delta_i / 2 if u in V-hat_in
+    # z(B) = z(B) + delta_i, if B is in Omega and is a root blossom with B is a subset of V-hat_out
+    # z(B) = z(B) - delta_i, if B is in Omega and is a root blossom with B is a subset of V-hat_in
+    
+    # (4) Blossom Dissolution:
+    # After dual adjustments some root blossoms may have zero z-values. Dissolve such blossoms (remove them from Omega) as long as they exist. Note that non-root blossoms are allowed to have zero z-values.
+    # Update G_elig by the new Omega
+
+    # Prepare for the next scale, if i is in [0, L)
+    # delta_(i+1) = delta_i / 2
+    # y(u) = y(u) + delta_(i+1) for all u in V(G)
+    # (this makes free vertices' y-values become N/2^(i+2))
+    pass
