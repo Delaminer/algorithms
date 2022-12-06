@@ -29,4 +29,5 @@ matching = matching(vertices=vertices)
 print(f"largest matching was size {len(matching)}")
 print(matching)
 
-display(vertices, edges)
+# display(vertices, edges)
+display(vertices, edges, matching)

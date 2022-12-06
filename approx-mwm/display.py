@@ -12,15 +12,21 @@ def generate_points(vertices):
         points[key] = [x, y]
     return points
 
-def display(vertices, matches):
+def display(vertices, edges, matches):
     plt.figure()
     points = generate_points(vertices)
     # Plot points
     x, y = zip(*points.values())
     plt.scatter(x, y, marker='o')
+    # Plot edges
+    for first, second in edges:
+        two_points = [points[first], points[second]]
+        x, y = zip(*two_points)
+        plt.plot(x, y)
     # Plot matchings
     for first, second in matches:
         two_points = [points[first], points[second]]
         x, y = zip(*two_points)
-        plt.plot(x, y)
+        plt.plot(x, y, linewidth=3)
+        
     plt.show()

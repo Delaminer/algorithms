@@ -1,8 +1,13 @@
 # Find the matches recursively
 def matching(vertices):
     return recurse(vertices, [])
-
+sol = {}
+def getkey(ignore):
+    return ignore.sort()
 def recurse(vertices, ignore):
+    key = getkey(ignore)
+    if key in sol:
+        return sol[key]
     best_matching = []
     i = 0
     # if len(ignore) % 10 == 0 and len(ignore) != 50:
@@ -19,6 +24,7 @@ def recurse(vertices, ignore):
                 best_matching = this
                 best_matching.append([first, second])
     
+    sol[key] = best_matching
     return best_matching
 
 def available(possible, remove):
