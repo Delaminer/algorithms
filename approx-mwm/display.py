@@ -1,5 +1,6 @@
 import math
 import matplotlib.pyplot as plt
+from objects.edge import Edge, Edge_Items
 
 def generate_points(vertices):
     n = len(vertices)
@@ -22,11 +23,12 @@ def display(vertices, edges, matches):
     for first, second in edges:
         two_points = [points[first], points[second]]
         x, y = zip(*two_points)
-        plt.plot(x, y)
+        plt.plot(x, y, linewidth=0.25, color='gray')
     # Plot matchings
-    for first, second in matches:
+    for match in matches:
+        first, second = Edge_Items(match)
         two_points = [points[first], points[second]]
         x, y = zip(*two_points)
-        plt.plot(x, y, linewidth=3)
+        plt.plot(x, y, linewidth=2, color='blue')
         
     plt.show()
