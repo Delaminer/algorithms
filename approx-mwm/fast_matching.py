@@ -1,16 +1,18 @@
 # https://web.eecs.umich.edu/~pettie/papers/ApproxMWM-JACM.pdf
 import math
 from objects.matching import Matching
+from objects.edge import Edge, Edge_Items
+from objects.graph import Graph
 
 # class Edge:
 #     def __init__(self, a, b):
 #         self.points = [a, b]
 #         self.points.sort()
 
-def edge(a, b):
-    pair = [a, b]
-    pair.sort()
-    return pair
+# def edge(a, b):
+#     pair = [a, b]
+#     pair.sort()
+#     return pair
 
 def multiple(a, b):
     return a % b == 0 and a / b > 0
@@ -24,7 +26,7 @@ def get_G_elig(vertices, Matching, Omega_edges, weights, delta, yz):
     for first in vertices:
         for second in vertices[first]:
             # Is this edge eligible?
-            edge = edge(first, second)
+            edge = Edge(first, second)
             flag = False
             if edge in Omega_edges:
                 flag = True
@@ -59,10 +61,12 @@ def fast_matching(vertices):
     for first in vertices:
         for second in vertices[first]:
             # Is this edge eligible?
-            edge = edge(first, second)
+            edge = Edge(first, second)
             edges.add(edge)
     yz = dict([(edge, 0) for edge in edges])
     weights = dict([(edge, 1) for edge in edges])
+
+    graph = Graph(vertices.keys(), edges, adj_matrix=vertices)
 
     # Execute scales i = 0, ..., L = log N and return the matching M
 
@@ -78,10 +82,11 @@ def fast_matching(vertices):
 
         # (1) Augmentation:
         # Find a maximal set Psi of vertex-disjoint augmenting paths in G_elig
-        Psi = max_augmenting_paths(G_elig)
+        # Psi = max_augmenting_paths(G_elig)
+        graph.
         # Set M = M (+) (Union P, for all P in Psi)
         # Update G_elig
-        G_elig = get_G_elig(vertices=vertices, Matching=Matching, Omega_edges=Omega_edges, weights=weights, delta=delta, yz=yz)
+        # G_elig = get_G_elig(vertices=vertices, Matching=Matching, Omega_edges=Omega_edges, weights=weights, delta=delta, yz=yz)
 
         # (2) Blossom Shrinking:
         # Let V_out be a subset of V(G_elig) be the vertices (that is, root blossoms) reachable from free vertices by even-length alternating paths;
@@ -111,6 +116,44 @@ def fast_matching(vertices):
         pass            
 
 
+def test_fast_matching():
+    # vertices, edges = get_input_graph()
+    # vertices = {
+    #     "A": ["B"],
+    #     "B": ["C","A"],
+    #     "C": ["B","D"],
+    #     "D": ["C", "E"],
+    #     "E": ["D", "F"],
+    #     "F": ["E"],
+    # }
+    # matching = Matching(vertices)
+    # matching.add("B", "C")
+    # matching.add("D", "E")
+    
+    vertices = {
+        "A": ["B"],
+        "B": ["C","A"],
+        "C": ["H","D"],
+        "D": ["C", "E"],
+        "E": ["D", "F"],
+        "F": ["E", "G"],
+        "G": ["F", "H"],
+        "H": ["G", "C"],
+    }
+    fast_matching(vertices)
+    # matching = Matching(vertices)
+    # matching.add("B", "C")
+    # matching.add("D", "E")
+    # matching.add("G", "H")
+    # random_matching(vertices, matching)
+
+    # print(f"Started with {matching}")
+    # new_matching = find_maximal_set(vertices, matching)
+    # print(f"Now have {new_matching}")
+    # print(f"(also have {matching})")
+
+if __name__ == "__main__":
+    test_fast_matching()
 
 def fast_matching_old(vertices):
     N = len(vertices.keys)

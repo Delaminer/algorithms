@@ -9,8 +9,8 @@ class Matching:
     def clear(self):
         self.pairs = []
         self.matched = set()
-        self.unmatched = set(self.vertices.keys())
-        self.partner = dict([(i, None) for i in self.vertices.keys()]) # All vertices have a partner of None
+        self.unmatched = set(self.vertices)
+        self.partner = dict([(i, None) for i in self.vertices]) # All vertices have a partner of None
     
     def add(self, v1, v2):
         if v1 in self.matched:
@@ -55,6 +55,9 @@ class Matching:
 
     def isMatched(self, v):
         return v in self.matched
+    
+    def inMatching(self, edge):
+        return edge in self.pairs
 
     def getPartner(self, v):
         return self.partner[v]

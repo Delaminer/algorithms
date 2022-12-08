@@ -3,7 +3,7 @@ sys.path.append("..")
 from objects.matching import Matching
 from objects.edge import Edge
 
-def DFS(vertices, matching, visited, v, ff):
+def DFS(vertices, matching, visited, v, valid_edge):
     if v in visited:
         return 0, set(), set()
     else:
@@ -19,6 +19,8 @@ def DFS(vertices, matching, visited, v, ff):
 
         # Find another (matched) vertex we can connect to
         for next_v in vertices[v]:
+            if not valid_edge(Edge(v, next_v)):
+                continue
             if matching.isMatched(next_v):
                 # Found a matched vertex. Remove its match and match with it. That other vertex is now unmatched, so DFS on it.
 
@@ -30,7 +32,7 @@ def DFS(vertices, matching, visited, v, ff):
                 toAdd = matching.add(v, next_v)
 
                 # Next, match up next_next_v!
-                this_score, this_add, this_remove = DFS(vertices, matching, visited, next_next_v, ff + "  ")
+                this_score, this_add, this_remove = DFS(vertices, matching, visited, next_next_v, valid_edge)
 
                 # Undo this matching
                 matching.remove(v)
@@ -49,14 +51,14 @@ def DFS(vertices, matching, visited, v, ff):
 
         return best_score, best_add, best_remove
 
-def find_maximal_set(vertices, matching):
+def find_maximal_set(vertices, matching, valid_edge):
     visited = set() # Set
     unmatched = matching.get_unmatched()
 
     while len(unmatched) > 0:
         flag = True
         for v in unmatched:
-            this_score, this_add, this_remove = DFS(vertices, matching, visited, v, "")
+            this_score, this_add, this_remove = DFS(vertices, matching, visited, v, valid_edge)
             if this_score != 0:
                 matching.add_augmenting_path(this_add, this_remove)
                 flag = False
@@ -129,9 +131,8 @@ def test_maximal_set():
     random_matching(vertices, matching)
 
     print(f"Started with {matching}")
-    new_matching = find_maximal_set(vertices, matching)
-    print(f"Now have {new_matching}")
-    print(f"(also have {matching})")
+    find_maximal_set(vertices, matching, valid_edge=lambda x: True)
+    print(f"Now have {matching}")
 
 if __name__ == "__main__":
     test_maximal_set()
