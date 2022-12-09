@@ -62,32 +62,14 @@ def find_maximal_set(vertices, matching, valid_edge):
         for v in unmatched:
             this_score, this_add, this_remove = DFS(vertices, matching, visited, v, valid_edge)
             if this_score != 0:
-                # print(f"Using AP {this_add} and {this_remove} to {matching}")
                 matching.add_augmenting_path(this_add, this_remove)
                 flag = False
                 break
-            # unmatched = matching.get_unmatched()
         # No modifications!
         if flag:
             break
         unmatched = matching.get_unmatched()
 
-        # if this_score > best_score:
-        #     # Use this augmenting path
-        #     best_add = this_add
-        #     best_remove = this_remove
-    
-    # Use the best augmenting path
-
-    
-    # while len(toSearch) > 0:
-    #     v = toSearch.pop()
-    #     # Can we start with this unmatched vertex?
-    #     for v_next in vertices[v]:
-    #         if not matched[v_next]:
-    #             # Is this matched?
-    #             include.append(v)
-    #             include.append(v_next)
     return matching
 
 def random_matching(vertices, matching):

@@ -313,7 +313,7 @@ def test2():
 def test3():
     adj_matrix, edges = get_input_graph()
     vertices = set(adj_matrix.keys())
-    print(edges)
+    # print(edges)
     graph2 = Graph(vertices, edges=edges, adj_matrix=adj_matrix)
     graph2.random()
     print(f'random matching: {graph2.matching}')
@@ -323,4 +323,4 @@ def test3():
 
 
 if __name__ == "__main__":
-    test2()
+    test3()
