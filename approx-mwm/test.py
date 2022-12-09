@@ -1,8 +1,3 @@
-def dfs(x, i, path):
-    if i % 3 == 0:
-        print(path)
-    if i < len(x):
-        dfs(x, i + 1, [*path, x[i]])
-        print(f'done with {path}')
-
-dfs(range(10), 0, [])
+import cProfile
+import test_random
+cProfile.run("[(a, b) for a in (1, 3, 5) for b in (2, 4, 6)]")

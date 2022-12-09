@@ -13,9 +13,10 @@ def generate_points(vertices):
         points[key] = [x, y]
     return points
 
-def display(vertices, edges, matches):
+def display(vertices, edges, matches, points=None):
     plt.figure()
-    points = generate_points(vertices)
+    if points is None:
+        points = generate_points(vertices)
     # Plot points
     x, y = zip(*points.values())
     plt.scatter(x, y, marker='o')

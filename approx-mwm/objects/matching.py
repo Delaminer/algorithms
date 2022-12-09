@@ -12,6 +12,19 @@ class Matching:
         self.unmatched = set(self.vertices)
         self.partner = dict([(i, None) for i in self.vertices]) # All vertices have a partner of None
     
+    def random(self, adj_matrix):
+        # Create a random matching
+        for v in self.vertices:
+            # Try to match this up
+            if not self.isMatched(v):
+                for next_v in adj_matrix[v]:
+                    if not self.isMatched(next_v):
+                        # Match them!
+                        self.add(v, next_v)
+                        break
+        
+        print(f'Random matching matched {len(self.matched)}, did not match {len(self.unmatched)}')
+
     def add(self, v1, v2):
         if v1 in self.matched:
             print(f"{v1} is already matched! (with {self.partner[v1]})")
@@ -72,4 +85,5 @@ class Matching:
         return len(self.pairs)
 
     def __str__(self):
-        return f"Matching({len(self.pairs)} pairs): {self.pairs}"
+        self.verbose = False
+        return f"Matching({len(self.pairs)} pairs)" + (f": {self.pairs}" if self.verbose else "")

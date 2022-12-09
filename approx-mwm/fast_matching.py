@@ -83,7 +83,7 @@ def fast_matching(vertices):
         # (1) Augmentation:
         # Find a maximal set Psi of vertex-disjoint augmenting paths in G_elig
         # Psi = max_augmenting_paths(G_elig)
-        graph.
+        # graph.
         # Set M = M (+) (Union P, for all P in Psi)
         # Update G_elig
         # G_elig = get_G_elig(vertices=vertices, Matching=Matching, Omega_edges=Omega_edges, weights=weights, delta=delta, yz=yz)

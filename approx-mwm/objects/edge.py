@@ -11,4 +11,4 @@ def Edge_List(adj_matrix):
             # Is this edge eligible?
             edge = Edge(first, second)
             edges.add(edge)
-    return edge
+    return edges

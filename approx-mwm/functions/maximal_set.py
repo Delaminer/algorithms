@@ -16,10 +16,11 @@ def DFS(vertices, matching, visited, v, valid_edge):
             if not matching.isMatched(next_v):
                 best_score = 1
                 best_add.add(Edge(v, next_v))
+                break
 
         # Find another (matched) vertex we can connect to
         for next_v in vertices[v]:
-            if not valid_edge(Edge(v, next_v)):
+            if not valid_edge(Edge(v, next_v)) or next_v in visited:
                 continue
             if matching.isMatched(next_v):
                 # Found a matched vertex. Remove its match and match with it. That other vertex is now unmatched, so DFS on it.
@@ -47,6 +48,7 @@ def DFS(vertices, matching, visited, v, valid_edge):
                     best_add.add(toAdd)
                     best_remove.add(toRemove)
 
+
         visited.remove(v)
 
         return best_score, best_add, best_remove
@@ -60,6 +62,7 @@ def find_maximal_set(vertices, matching, valid_edge):
         for v in unmatched:
             this_score, this_add, this_remove = DFS(vertices, matching, visited, v, valid_edge)
             if this_score != 0:
+                # print(f"Using AP {this_add} and {this_remove} to {matching}")
                 matching.add_augmenting_path(this_add, this_remove)
                 flag = False
                 break

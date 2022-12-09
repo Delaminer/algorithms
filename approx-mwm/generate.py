@@ -33,7 +33,19 @@ def main2(n, m):
     print(f"{n} {m}")
     for edge in edges:
         print(edge)
-    
+
+def main3(n, m):
+    vertices = dict([(i, id(i, n)) for i in range(n)])
+    edges = []
+    for x in range(m):
+        i = random.randrange(0, n)
+        j = random.randrange(0, n)
+        edge = f"{vertices[i]} {vertices[j]}" if random.random() > 0.5 else f"{vertices[j]} {vertices[i]}"
+        if i != j and edge not in edges:
+            edges.append(edge)
+    print(f"{n} {len(edges)}")
+    for edge in edges:
+        print(edge)
 
 if __name__ == "__main__":
     # python3 generate.py 10 30 > graph.out
@@ -46,4 +58,4 @@ if __name__ == "__main__":
         if m > max_m:
             # print(f"Max m is f{max_m}")
             m = max_m
-        main2(n, m)
+        main3(n, m)
